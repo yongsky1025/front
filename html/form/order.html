@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>상품 주문서</h1>
+    <form action="" method="get">
+      <fieldset>
+        <legend>개인정보</legend>
+        <ul>
+          <li>
+            <label for="name">이름</label>
+            <input type="text" name="name" id="name" placeholder="여백없이 입력" />
+          </li>
+          <li>
+            <label for="tel">연락처</label>
+            <input type="tel" name="tel" id="tel" placeholder="연락가능한 번호" />
+          </li>
+        </ul>
+      </fieldset>
+
+      <fieldset>
+        <legend>배송지 정보</legend>
+        <ul>
+          <li>
+            <label for="adress">주 소</label>
+            <input type="text" name="adress" id="adress" size="40" />
+          </li>
+          <li>
+            <label for="tel1">전화번호</label>
+            <input type="tel" name="tel" id="tel1" pattern="\d{3}-\d{4}-\d{4}" />
+          </li>
+          <li>
+            <label for="message">메모</label>
+            <textarea name="message" id="message" cols="40" rows="3"></textarea>
+          </li>
+        </ul>
+      </fieldset>
+      <fieldset>
+        <legend>주문 정보</legend>
+        <ul>
+          <li>
+            <input type="checkbox" name="checkname1" id="checkname1" value="1" />
+            <label for="checkname1">과테말라 안티구아 (100g)</label>
+            <input type="number" name="number1" id="number1" value="0" min="0" max="9" />개
+          </li>
+          <li>
+            <input type="checkbox" name="checkname2" id="checkname2" value="2" />
+            <label for="checkname2">인도네시아 만델링 (100g)</label>
+            <input type="number" name="number2" id="number2" value="0" min="0" max="9" />개
+          </li>
+          <li>
+            <input type="checkbox" name="checkname3" id="checkname3" value="3" />
+            <label for="checkname3">탐라는도다(블랜딩) (100g)</label>
+            <input type="number" name="number3" id="number3" value="0" min="0" max="9" />개
+          </li>
+        </ul>
+      </fieldset>
+      <button type="submit">주문하기</button>
+      <button type="reset">다시 작성</button>
+    </form>
+  </body>
+</html>
