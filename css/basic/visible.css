@@ -1,0 +1,33 @@
+/* 요소 감추기
+  1. visibility: hidden;
+    요소는 안 보이지만 자리는 차지하고 있음
+  2. display: none;
+    요소는 안 보이고 자리도 안 차지함
+*/
+
+/* flex 수평배치 */
+.container {
+  display: flex;
+}
+
+.container div {
+  width: 100px;
+  height: 100px;
+  cursor: pointer;
+}
+
+/* 배경색 지정 */
+.container div:first-child {
+  background-color: red;
+}
+.container div:nth-child(2) {
+  background-color: blue;
+  display: none;
+}
+.container div:nth-child(3) {
+  background-color: yellow;
+  visibility: hidden;
+}
+.container div:last-child {
+  background-color: green;
+}
