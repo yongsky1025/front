@@ -24,7 +24,7 @@ console.log("a === c = ", a === c);
 console.log("a != c = ", a != c);
 console.log("a !== c = ", a !== c);
 
-// 연결
+// 연결 (+)
 console.log("\n연결연산");
 console.log("a + c = ", a + c); //44 (4 + "4")
 console.log("\nd = 5");
