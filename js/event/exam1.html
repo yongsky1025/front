@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>The Light Blub</h2>
+    <div>
+      <button type="button">Turn on the light</button>
+      <img src="../img/pic_bulboff.gif" alt="" srcset="" />
+      <button type="button">Turn off the light</button>
+    </div>
+
+    <script>
+      //   // 내가 짠 코드
+      //   const img = document.querySelector("img");
+      //   const btns = document.querySelectorAll("button");
+      //   const onBtn = btns[0];
+      //   const offBtn = btns[1];
+      //   // Turn on the light 클릭 시 img src 수정 ../img/pic_bulbon.gif
+      //   onBtn.addEventListener("click", () => {
+      //     if (!img.src.includes("pic_bulbon.gif")) {
+      //       console.log(onBtn);
+      //       img.src = "../img/pic_bulbon.gif";
+      //     }
+      //   });
+      //   // Turn off the light 클릭 시 img src 수정 ../img/pic_bulboff.gif
+      //   offBtn.addEventListener("click", () => {
+      //     if (!img.src.includes("pic_bulboff.gif")) {
+      //       console.log(offBtn);
+      //       img.src = "../img/pic_bulboff.gif";
+      //     }
+      //   });
+
+      //   // 강사님 코드
+      const btns = document.querySelectorAll("button");
+      const source = (src) => {
+        //img.src=";
+        document.querySelector("img").src = src;
+      };
+
+      //   btns[0].addEventListener("click", () => source("../img/pic_bulbon.gif"));
+      //   btns[1].addEventListener("click", () => source("../img/pic_bulboff.gif"));
+
+      //   이벤트 버블링
+      const div = document.querySelector("div");
+      div.addEventListener("click", (e) => {
+        // 어느 버튼 에서 이벤트 발생했는지 찾기
+        const evt = e.target;
+        console.log(evt);
+        if (evt.textContent.includes("on")) {
+          source("../img/pic_bulbon.gif");
+        } else {
+          source("../img/pic_bulboff.gif");
+        }
+      });
+    </script>
+  </body>
+</html>
