@@ -1,3 +1,22 @@
+document.querySelector("a").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // href 값 가져오기
+  console.log("href ", e.target.href);
+  //target 값 가져오기
+  console.log("target ", e.target.target);
+  console.log("data-link ", e.target.dataset.link);
+  console.log("data-link-test ", e.target.dataset.linkTest);
+
+  // // naver 가 들어있다면 이동
+  // if (e.target.href.includes("naver")) {
+  //   location.href = e.target.href;
+  // } else {
+  //   // 아니라면 구글로 이동
+  //   location.href = "http://www.google.com";
+  // }
+});
+
 // form submit 발생 시
 
 document.querySelector("form").addEventListener("submit", (e) => {
