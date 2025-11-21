@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function getData1(trtr) {
+        fetch("https://jsonplaceholder.typicode.com/todos/1")
+          .then((response) => response.json())
+          .then((data) => trtr(data));
+      }
+
+      function getData2(trtr) {
+        fetch("https://jsonplaceholder.typicode.com/todos/")
+          .then((response) => response.json())
+          .then((data) => trtr(data));
+      }
+
+      // 콜백지옥
+      getData1((asd) => {
+        console.log(asd);
+
+        getData2((asd) => {
+          console.log(asd);
+        });
+      });
+
+      // Promise
+      // async / await
+    </script>
+  </body>
+</html>
