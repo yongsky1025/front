@@ -30,11 +30,83 @@ btn.addEventListener("click", () => {
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
+      // movieCd, movieNm, rank, rankInten
       const dailyBoxOfficeList = data.boxOfficeResult.dailyBoxOfficeList;
 
+      let contents = "";
       dailyBoxOfficeList.forEach((item) => {
         console.log(item.movieCd, item.movieNm, item.rank, item.rankInten);
+        // 1 위키드 : 포 굿(0)
+        // 7 세계의 주인(▲ 1)
+        // 9 퍼스트 라이드(▼ -2)
+        contents += `${item.rank}위 `;
+        contents += `<a href=${item.movieCd}>${item.movieNm}</a >`;
+        contents += `(`;
+
+        if (item.rankInten > 0) {
+          contents += `▲ ${item.rankInten})`;
+        } else if (item.rankInten < 0) {
+          contents += `▼ ${item.rankInten})`;
+        } else if (item.rankInten == 0) {
+          contents += `${item.rankInten})`;
+        }
+        contents += `<br>`;
       });
-      // movieCd, movieNm, rank, rankInten
+      document.querySelector("#msg").innerHTML = contents;
+    });
+});
+
+// 영화제목 클릭 시
+// 영화상세정보 요청
+
+// a 링크 기능 정지
+// movieCd 값 가지고 오기
+
+document.querySelector("#msg").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // 이벤트 대상 확인
+  console.log(e.target);
+  console.log(e.target.href); // http://10.100.0.58:5501/ajax/20255381
+  console.log(e.target.getAttribute("href")); // 20255381
+
+  const movieCd = e.target.getAttribute("href");
+  const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=6997b9cb2b3175beb5068bf4971cb4ff&movieCd=${movieCd}`;
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data.movieInfoResult.movieInfo);
+      const movieInfo = data.movieInfoResult.movieInfo;
+
+      let movieDetail = `<ul>`;
+      // 한글제목 : 위키드: 포 굿
+      movieDetail += `<li>한글제목 : ${movieInfo.movieNm}</li>`;
+      // 영어제목 : Wicked: For Good
+      movieDetail += `<li>영어제목 : ${movieInfo.movieNmEn}</li>`;
+      // 상영시간 : 137 분
+      movieDetail += `<li>상영시간 : ${movieInfo.showTm}</li>`;
+      // 장르 : 판타지, 뮤지컬, 어드벤처
+
+      let genres = "";
+      movieInfo.genres.forEach((genre) => {
+        genres += `${genre.genreNm}, `;
+      });
+      movieDetail += `<li>장르 : ${genres}</li>`;
+
+      // 감독 : 존 추
+      let directors = "";
+      movieInfo.directors.forEach((director) => {
+        directors += `${director.peopleNm}, `;
+      });
+      movieDetail += `<li>감독 : ${directors}</li>`;
+
+      // 배우(한글) : 신시아 에리보, 아리아나 그란데, 조나단 베일리
+      let actors = "";
+      movieInfo.actors.forEach((actor) => {
+        actors += `${actor.peopleNm},`;
+      });
+      movieDetail += `<li>배우 : ${actors}</li>`;
+      movieDetail += `</ul>`;
+      document.querySelector("#detail").innerHTML = movieDetail;
     });
 });

@@ -1,0 +1,111 @@
+//
+
+// fetch
+const txtYear = document.querySelector("#txtYear");
+const selMon = document.querySelector("#selMon");
+const selDay = document.querySelector("#selDay");
+// 페이지가 로드되면
+const init = () => {
+  // 1. 어제 날짜를 보여주기
+  const now = new Date();
+  console.log(now);
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1; // 월 0 부터 시작함
+  const day = now.getDate() - 1; // 어제 날짜
+
+  console.log(year, month, day);
+  // 2. 구한 어제 날짜를 화면에 보여주기
+  txtYear.value = year;
+  selMon.value = month < 10 ? "0" + month : month;
+  selDay.value = day < 10 ? "0" + day : day;
+};
+init();
+
+const btn = document.querySelector("button");
+btn.addEventListener("click", () => {
+  // 사용자가 입력한 날짜 가져오기
+  const date = txtYear.value + selMon.value + selDay.value;
+  console.log(date);
+
+  const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=6997b9cb2b3175beb5068bf4971cb4ff&targetDt=${date}`;
+  axios.get(url).then((response) => {
+    console.log(response.data);
+    // movieCd, movieNm, rank, rankInten
+    const dailyBoxOfficeList = response.data.boxOfficeResult.dailyBoxOfficeList;
+
+    let contents = "";
+    dailyBoxOfficeList.forEach((item) => {
+      console.log(item.movieCd, item.movieNm, item.rank, item.rankInten);
+      // 1 위키드 : 포 굿(0)
+      // 7 세계의 주인(▲ 1)
+      // 9 퍼스트 라이드(▼ -2)
+      contents += `${item.rank}위 `;
+      contents += `<a href=${item.movieCd}>${item.movieNm}</a >`;
+      contents += `(`;
+
+      if (item.rankInten > 0) {
+        contents += `▲ ${item.rankInten})`;
+      } else if (item.rankInten < 0) {
+        contents += `▼ ${item.rankInten})`;
+      } else if (item.rankInten == 0) {
+        contents += `${item.rankInten})`;
+      }
+      contents += `<br>`;
+    });
+    document.querySelector("#msg").innerHTML = contents;
+  });
+});
+
+// 영화제목 클릭 시
+// 영화상세정보 요청
+
+// a 링크 기능 정지
+// movieCd 값 가지고 오기
+
+document.querySelector("#msg").addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // 이벤트 대상 확인
+  console.log(e.target);
+  console.log(e.target.href); // http://10.100.0.58:5501/ajax/20255381
+  console.log(e.target.getAttribute("href")); // 20255381
+
+  const movieCd = e.target.getAttribute("href");
+  const url = `http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=6997b9cb2b3175beb5068bf4971cb4ff&movieCd=${movieCd}`;
+
+  axios.get(url).then((response) => {
+    console.log(response.data.movieInfoResult.movieInfo);
+    const movieInfo = response.data.movieInfoResult.movieInfo;
+
+    let movieDetail = `<ul>`;
+    // 한글제목 : 위키드: 포 굿
+    movieDetail += `<li>한글제목 : ${movieInfo.movieNm}</li>`;
+    // 영어제목 : Wicked: For Good
+    movieDetail += `<li>영어제목 : ${movieInfo.movieNmEn}</li>`;
+    // 상영시간 : 137 분
+    movieDetail += `<li>상영시간 : ${movieInfo.showTm}</li>`;
+    // 장르 : 판타지, 뮤지컬, 어드벤처
+
+    let genres = "";
+    movieInfo.genres.forEach((genre) => {
+      genres += `${genre.genreNm}, `;
+    });
+    movieDetail += `<li>장르 : ${genres}</li>`;
+
+    // 감독 : 존 추
+    let directors = "";
+    movieInfo.directors.forEach((director) => {
+      directors += `${director.peopleNm}, `;
+    });
+    movieDetail += `<li>감독 : ${directors}</li>`;
+
+    // 배우(한글) : 신시아 에리보, 아리아나 그란데, 조나단 베일리
+    let actors = "";
+    movieInfo.actors.forEach((actor) => {
+      actors += `${actor.peopleNm},`;
+    });
+    movieDetail += `<li>배우 : ${actors}</li>`;
+    movieDetail += `</ul>`;
+    document.querySelector("#detail").innerHTML = movieDetail;
+  });
+});
