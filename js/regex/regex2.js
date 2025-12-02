@@ -1,4 +1,4 @@
-const regEx = /d(b+)d/g; // () : 캡쳐링
+﻿const regEx = /d(b+)d/g; // () : 캡쳐링
 const origin = "cdbbdbsbz";
 
 // 정규식 객체 메소드 이용
@@ -44,4 +44,7 @@ document.querySelector("form").addEventListener("submit", (e) => {
     form.tel.focus();
     return;
   }
+
+  form.tel.focus();
+  return;
 });
