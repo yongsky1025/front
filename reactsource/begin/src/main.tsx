@@ -4,7 +4,8 @@ import './index.css';
 import App from './App.tsx';
 import Book from './component/Book.tsx';
 import MyApp from './component/MyApp.tsx';
-import Parent from './component/props/Parent.tsx';
+// import Parent from './component/props/Parent.tsx';
+import Parent from './component/memo/Parent.tsx';
 import Wrapper from './component/props/Wrapper.tsx';
 import CardApp from './component/props/CardApp.tsx';
 import Products from './component/props/Products.tsx';
@@ -27,7 +28,11 @@ import UserForm from './component/event/UserForm.tsx';
 import LifeCycle from './component/effect/LifeCycle.tsx';
 import LifeCycle2 from './component/effect/LifeCycle2.tsx';
 import BookApp from './component/effect/BookApp.tsx';
-import TaskApp from './component/state/TaskApp.tsx';
+// import TaskApp from './component/state/TaskApp.tsx';
+import TaskApp from './component/reducer/TaskApp.tsx';
+import UserApp from './component/reducer/UserApp.tsx';
+import UserApp2 from './component/reducer/UserApp2.tsx';
+import Memo from './component/memo/Memo.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <>
@@ -57,6 +62,17 @@ createRoot(document.getElementById('root')!).render(
     {/* <LifeCycle /> */}
     {/* <LifeCycle2 /> */}
     {/* <BookApp /> */}
-    <TaskApp />
+
+    {/* state폴더 */}
+    {/* <TaskApp /> */}
+
+    {/* <UserApp /> */}
+    {/* <UserApp2 /> */}
+
+    {/* reducer폴더 */}
+    {/* <TaskApp /> */}
+
+    {/* <Memo /> */}
+    <Parent />
   </>,
 );
