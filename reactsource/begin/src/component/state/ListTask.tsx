@@ -3,7 +3,7 @@ import {
   MdOutlineCheckBox,
   MdOutlineCheckBoxOutlineBlank,
 } from 'react-icons/md';
-import type { TaskItem, TaskList } from '../types/task';
+import type { TaskItem, TaskList } from '../../types/task';
 
 function TaskItem({ task, onDeleteTask, onChangeTask }: TaskItem) {
   const [isDone, setIsDone] = useState(task.done);

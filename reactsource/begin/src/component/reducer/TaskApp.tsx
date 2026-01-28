@@ -1,7 +1,7 @@
 import { useReducer, useState } from 'react';
 import AddTask from './AddTask';
 import ListTask from './ListTask';
-import type { Task } from '../types/task';
+import type { Task } from '../../types/task';
 import { taskReducer } from './taskReducer';
 
 export type TaskProps = {

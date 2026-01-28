@@ -33,7 +33,21 @@ import TaskApp from './component/reducer/TaskApp.tsx';
 import UserApp from './component/reducer/UserApp.tsx';
 import UserApp2 from './component/reducer/UserApp2.tsx';
 import Memo from './component/memo/Memo.tsx';
+import { BrowserRouter, RouterProvider } from 'react-router-dom';
+import Navbar from './router/declarative/Navbar.tsx';
+import router from './router/data/router.ts';
+import Consumer from './context/Consumer.tsx';
+import { AuthProvider } from './router/data/AuthContext.tsx';
+import { Provider } from 'react-redux';
+import MyTodo from './redux/component/MyTodo.tsx';
+import { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './redux/modules/index.ts';
 
+// store : 애플리케이션 당 하나의 스토어
+// 데이터 공유
+const store = configureStore({
+  reducer: rootReducer,
+});
 createRoot(document.getElementById('root')!).render(
   <>
     {/* <App /> */}
@@ -62,17 +76,27 @@ createRoot(document.getElementById('root')!).render(
     {/* <LifeCycle /> */}
     {/* <LifeCycle2 /> */}
     {/* <BookApp /> */}
-
     {/* state폴더 */}
     {/* <TaskApp /> */}
-
     {/* <UserApp /> */}
     {/* <UserApp2 /> */}
-
     {/* reducer폴더 */}
     {/* <TaskApp /> */}
-
     {/* <Memo /> */}
-    <Parent />
+    {/* <Parent /> */}
+    {/* declarative방식 */}
+    {/* <LifeCycle2 /> */}
+    {/* <BrowserRouter>
+      <Navbar />
+    </BrowserRouter> */}
+    {/* data방식 */}
+    {/* <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider> */}
+    {/* <Consumer /> */}
+
+    <Provider store={store}>
+      <MyTodo />
+    </Provider>
   </>,
 );

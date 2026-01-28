@@ -1,4 +1,4 @@
-import type { Task, TaskList } from '../types/task';
+import type { Task, TaskList } from '../../types/task';
 
 export type TaskAction =
   | { type: 'ADD'; id: number; text: string; done: boolean }
